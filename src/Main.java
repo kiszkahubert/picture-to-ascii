@@ -1,4 +1,5 @@
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.PrintWriter;
@@ -6,7 +7,10 @@ import java.io.PrintWriter;
 public class Main {
     public static void main(String[] args) {
         try{
-            BufferedImage image = ImageIO.read(new File("img.png"));
+            BufferedImage originalImage = ImageIO.read(new File("INSERT YOUR PATHNAME HERE"));
+            Image tmp = originalImage.getScaledInstance(300, 300, Image.SCALE_SMOOTH);
+            BufferedImage image = new BufferedImage(300, 300, BufferedImage.TYPE_INT_ARGB);
+            image.getGraphics().drawImage(tmp, 0, 0, null);
             StringBuilder builder = new StringBuilder();
             for (int i = 0; i < image.getHeight(); i++) {
                 for (int j = 0; j < image.getWidth(); j++) {
@@ -32,7 +36,7 @@ public class Main {
         } else if (luminance <= 0.2){
             return '.';
         } else if(luminance <= 0.3){
-            return '-';
+            return 'o';
         } else if(luminance <= 0.4){
             return '?';
         } else if(luminance <= 0.5){
@@ -44,7 +48,7 @@ public class Main {
         }else if(luminance <= 0.8){
             return '*';
         }else if(luminance <= 0.9){
-            return '`';
+            return 'Z';
         }else if(luminance <= 1){
             return '+';
         }
